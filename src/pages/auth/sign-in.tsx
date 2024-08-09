@@ -1,6 +1,7 @@
 import { ToastAction } from '@radix-ui/react-toast'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -34,7 +35,7 @@ export function SignIn() {
         description: `Enviamos um link de autenticação para o email ${data.email}`,
         action: (
           <ToastAction altText="Try again" onClick={() => handleSignIn(data)}>
-            <Button>Reenviar</Button>
+            <Button variant="secondary">Reenviar</Button>
           </ToastAction>
         ),
       })
@@ -50,6 +51,10 @@ export function SignIn() {
     <>
       <Helmet title="Login" />
       <div className="p-8">
+        <Button asChild className="absolute right-8 top-8" variant="outline">
+          <Link to="/sign-up">Novo Estabelecimento</Link>
+        </Button>
+
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
