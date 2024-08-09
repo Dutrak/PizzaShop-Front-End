@@ -1,9 +1,11 @@
 import { ToastAction } from '@radix-ui/react-toast'
+import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
+import { registerRestaurant } from '@/api/register-restaurant'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -11,6 +13,7 @@ import { useToast } from '@/components/ui/use-toast'
 
 const signUpFormSchema = z.object({
   restaurantName: z.string(),
+  restaurantDescription: z.string(),
   managerName: z.string(),
   phone: z.string(),
   email: z.string().email(),
@@ -29,16 +32,27 @@ export function SignUp() {
 
   const { toast } = useToast()
 
+  const { mutateAsync: registerRestaurantFn } = useMutation({
+    mutationFn: registerRestaurant,
+  })
+
   async function handleSignUp(data: SignUpForm) {
     try {
-      console.log(data)
-
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await registerRestaurantFn({
+        restaurantName: data.restaurantName,
+        restaurantDescription: data.restaurantDescription,
+        managerName: data.managerName,
+        email: data.email,
+        phone: data.phone,
+      })
 
       toast({
         title: 'Restaurante Cadastrado com sucesso',
         action: (
-          <ToastAction altText="Login" onClick={() => navigate('/sign-in')}>
+          <ToastAction
+            altText="Login"
+            onClick={() => navigate(`/sign-in?email=${data.email}`)}
+          >
             <Button variant="secondary">Login</Button>
           </ToastAction>
         ),
@@ -76,6 +90,15 @@ export function SignUp() {
                 id="restaurantName"
                 type="text"
                 {...register('restaurantName')}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="restaurantName">Descrição Estabelecimento</Label>
+              <Input
+                id="restaurantDescription"
+                type="text"
+                {...register('restaurantDescription')}
               />
             </div>
 
