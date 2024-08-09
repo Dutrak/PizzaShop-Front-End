@@ -1,10 +1,51 @@
+import { ToastAction } from '@radix-ui/react-toast'
 import { Helmet } from 'react-helmet-async'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/components/ui/use-toast'
+
+const signInFormSchema = z.object({
+  email: z.string().email(),
+})
+
+type SignInForm = z.infer<typeof signInFormSchema>
 
 export function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SignInForm>()
+
+  const { toast } = useToast()
+
+  async function handleSignIn(data: SignInForm) {
+    try {
+      console.log(data)
+
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+
+      toast({
+        title: 'Link de Autenticação enviado',
+        description: `Enviamos um link de autenticação para o email ${data.email}`,
+        action: (
+          <ToastAction altText="Try again" onClick={() => handleSignIn(data)}>
+            <Button>Reenviar</Button>
+          </ToastAction>
+        ),
+      })
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Credenciais Invalidas',
+      })
+    }
+  }
+
   return (
     <>
       <Helmet title="Login" />
@@ -19,13 +60,13 @@ export function SignIn() {
             </p>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Seu Email</Label>
-              <Input id="email" type="email" />
+              <Input id="email" type="email" {...register('email')} />
             </div>
 
-            <Button className="w-full" type="submit">
+            <Button disabled={isSubmitting} className="w-full" type="submit">
               Acessar Painel
             </Button>
           </form>
