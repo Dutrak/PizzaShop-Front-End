@@ -3,17 +3,13 @@ import { Cell, Pie, PieChart } from 'recharts'
 import colors from 'tailwindcss/colors'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ChartConfig, ChartContainer } from '@/components/ui/chart'
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+} from '@/components/ui/chart'
 import { PieLabel } from '@/components/utils/pie-label'
-
-const chartConfig = {
-  product: {
-    label: 'product',
-  },
-  amount: {
-    label: 'amount',
-  },
-} satisfies ChartConfig
 
 const data = [
   { product: 'Pepperoni', amount: 40 },
@@ -22,6 +18,24 @@ const data = [
   { product: 'Portuguesa', amount: 16 },
   { product: 'Chocolate', amount: 26 },
 ]
+
+const chartConfig = {
+  Pepperoni: {
+    label: 'Pepperoni',
+  },
+  Muzzarela: {
+    label: 'Muzzarela',
+  },
+  Marguerita: {
+    label: 'Marguerita',
+  },
+  Portuguesa: {
+    label: 'Portuguesa',
+  },
+  Chocolate: {
+    label: 'Chocolate',
+  },
+} satisfies ChartConfig
 
 const COLORS = [
   colors.sky[500],
@@ -44,10 +58,11 @@ export function PopularProductsChart() {
       </CardHeader>
       <CardContent>
         <ChartContainer
-          className="min-h-30 max-h-60 w-full"
           config={chartConfig}
+          height={240}
+          className="min-h-30 max-h-60 w-full pt-5"
         >
-          <PieChart accessibilityLayer style={{ fontSize: 12 }}>
+          <PieChart style={{ fontSize: 12 }}>
             <Pie
               data={data}
               dataKey="amount"
@@ -56,7 +71,7 @@ export function PopularProductsChart() {
               cy="50%"
               outerRadius={86}
               innerRadius={64}
-              strokeWidth={8}
+              strokeWidth={4}
               labelLine={false}
               label={PieLabel}
             >
@@ -70,6 +85,10 @@ export function PopularProductsChart() {
                 )
               })}
             </Pie>
+            <ChartLegend
+              className="justify-cente flex flex-wrap items-center gap-1 xl:hidden"
+              content={<ChartLegendContent nameKey="product" />}
+            />
           </PieChart>
         </ChartContainer>
       </CardContent>

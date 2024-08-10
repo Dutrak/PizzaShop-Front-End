@@ -27,7 +27,7 @@ export const PieLabel = ({
     <text
       x={x}
       y={y}
-      className="fill-muted-foreground text-xs"
+      className="fill-muted-foreground text-xs max-xl:fill-none"
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
     >

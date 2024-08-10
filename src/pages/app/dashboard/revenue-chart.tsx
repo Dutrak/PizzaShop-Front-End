@@ -44,6 +44,7 @@ export function RevenueChart() {
         <ChartContainer
           className="min-h-30 max-h-60 w-full"
           config={chartConfig}
+          height={240}
         >
           <LineChart accessibilityLayer style={{ fontSize: 12 }} data={data}>
             <YAxis
