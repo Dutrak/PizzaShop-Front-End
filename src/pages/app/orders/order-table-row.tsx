@@ -14,12 +14,13 @@ interface OrderTableRowProps {
     status: 'pending' | 'processing' | 'delivering' | 'delivered' | 'canceled'
     createdAt: string
     orderId: string
-    costumerName: string
+    customerName: string
     total: number
   }
 }
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
+  console.log(order.customerName)
   return (
     <TableRow>
       <TableCell>
@@ -46,7 +47,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       <TableCell>
         <OrderStatus status={order.status} />
       </TableCell>
-      <TableCell className="font-medium">{order.costumerName}</TableCell>
+      <TableCell className="font-medium">{order.customerName}</TableCell>
       <TableCell className="font-medium">
         {order.total.toLocaleString('pt-BR', {
           style: 'currency',
