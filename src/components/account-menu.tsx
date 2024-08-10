@@ -40,22 +40,36 @@ export function AccountMenu() {
       staleTime: Infinity,
     })
 
+  function updateManagedResaturantCache({ name, description }: StoreProfile) {
+    const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
+      'get-managed-resturant',
+    ])
+
+    if (cached) {
+      queryClient.setQueryData<GetManagedRestaurantResponse>(
+        ['get-managed-resturant'],
+        {
+          ...cached,
+          name,
+          description,
+        },
+      )
+    }
+
+    return { cached }
+  }
+
   const { mutateAsync: UpdateProfileFn } = useMutation({
     mutationFn: updateProfile,
-    onSuccess(_, { name, description }) {
-      const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
-        'get-managed-resturant',
-      ])
+    onMutate({ name, description }) {
+      const { cached } = updateManagedResaturantCache({ name, description })
 
-      if (cached) {
-        queryClient.setQueryData<GetManagedRestaurantResponse>(
-          ['get-managed-resturant'],
-          {
-            ...cached,
-            name,
-            description,
-          },
-        )
+      return { previousProfile: cached }
+    },
+
+    onError(_, __, context) {
+      if (context?.previousProfile) {
+        updateManagedResaturantCache(context.previousProfile)
       }
     },
   })
