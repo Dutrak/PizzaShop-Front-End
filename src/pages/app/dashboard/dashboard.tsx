@@ -20,7 +20,7 @@ export function DashBoard() {
           <MonthCanceledOrdersAmountCard />
         </div>
 
-        <div className="grid grid-cols-9 gap-4 max-md:flex max-md:flex-col max-md:gap-4">
+        <div className="grid grid-cols-9 gap-4 max-[769px]:flex max-[769px]:flex-col max-[769px]:gap-4">
           <RevenueChart />
           <PopularProductsChart />
         </div>
