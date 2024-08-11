@@ -1,5 +1,6 @@
 import { ToastAction } from '@radix-ui/react-toast'
 import { useMutation } from '@tanstack/react-query'
+import { Pizza } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -64,6 +65,11 @@ export function SignIn() {
         <Button asChild className="absolute right-8 top-8" variant="outline">
           <Link to="/sign-up">Novo Estabelecimento</Link>
         </Button>
+
+        <div className="absolute left-8 top-8 flex items-center gap-3 text-lg font-medium text-foreground min-[769px]:hidden">
+          <Pizza className="size-4" />
+          <span className="font-semibold">PizzaShop</span>
+        </div>
 
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
