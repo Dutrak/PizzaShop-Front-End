@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { BarChart } from 'lucide-react'
-import { Cell, Pie, PieChart } from 'recharts'
+import { Cell, Pie, PieChart, Tooltip } from 'recharts'
 import colors from 'tailwindcss/colors'
 
 import { getPopularProducts } from '@/api/get-popular-products'
@@ -47,7 +47,7 @@ export function PopularProductsChart() {
         {popularProducts && (
           <ChartContainer
             config={chartConfig}
-            height={240}
+            height={320}
             className="min-h-30 max-h-60 w-full"
           >
             <PieChart style={{ fontSize: 12 }}>
@@ -73,6 +73,7 @@ export function PopularProductsChart() {
                   )
                 })}
               </Pie>
+              <Tooltip />
               <ChartLegend
                 className="justify-cente flex flex-wrap items-center gap-1 xl:hidden"
                 content={<ChartLegendContent nameKey="product" />}

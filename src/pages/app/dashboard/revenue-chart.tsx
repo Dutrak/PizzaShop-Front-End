@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { subDays } from 'date-fns'
 import { useMemo, useState } from 'react'
 import { DateRange } from 'react-day-picker'
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import colors from 'tailwindcss/colors'
 
 import { getDailyRevenueInPeriod } from '@/api/get-daily-revenue-in-period'
@@ -49,8 +49,8 @@ export function RevenueChart() {
 
   return (
     <Card className="col-span-6 max-[1025px]:col-span-5">
-      <CardHeader className="flex-row items-center justify-between p-8">
-        <div className="space-y-1">
+      <CardHeader className="flex-row items-center justify-between p-8 max-md:flex-col max-md:gap-8">
+        <div className="space-y-1 max-md:flex max-md:flex-col max-md:items-center">
           <CardTitle className="text-base font-medium">
             Receita no período
           </CardTitle>
@@ -58,7 +58,7 @@ export function RevenueChart() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Label>Periodo: </Label>
+          <Label className="max-md:hidden">Periodo: </Label>
           <DatePickerWithRange date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>
@@ -67,7 +67,7 @@ export function RevenueChart() {
           <ChartContainer
             className="min-h-30 max-h-60 w-full"
             config={chartConfig}
-            height={240}
+            height={320}
           >
             <LineChart
               accessibilityLayer
@@ -78,7 +78,6 @@ export function RevenueChart() {
                 stroke="#888"
                 axisLine={false}
                 tickLine={false}
-                width={80}
                 tickFormatter={(value: number) =>
                   value.toLocaleString('pt-BR', {
                     style: 'currency',
@@ -92,6 +91,17 @@ export function RevenueChart() {
                 strokeWidth={2}
                 dataKey="revenue"
                 stroke={colors.violet['500']}
+                name="Receita"
+              />
+
+              <Tooltip
+                labelClassName="text-zinc-500"
+                formatter={(value) =>
+                  Number(value).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })
+                }
               />
 
               <CartesianGrid vertical={false} />
