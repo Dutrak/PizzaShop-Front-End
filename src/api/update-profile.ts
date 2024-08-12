@@ -9,9 +9,5 @@ export async function updateProfile({
   name,
   description,
 }: UpdateProfileRequestBody) {
-  await api.put(
-    '/restaurants',
-    { name, description },
-    { withCredentials: true },
-  )
+  await api.put('/restaurants', { name, description })
 }
