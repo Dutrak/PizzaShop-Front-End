@@ -30,7 +30,7 @@ export function Pagination({
 
       <div className="flex items-center gap-6 lg:gap-8">
         <div className="text-sm font-medium">
-          Pagina {pageIndex + 1} de {pages}
+          Página {pageIndex + 1} de {pages}
         </div>
 
         <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export function Pagination({
             disabled={pageIndex === 0}
           >
             <ChevronsLeft className="size-4" />
-            <span className="sr-only">Primeira Página</span>
+            <span className="sr-only">Primeira página</span>
           </Button>
 
           <Button
@@ -61,7 +61,7 @@ export function Pagination({
             disabled={pages <= pageIndex + 1}
           >
             <ChevronRight className="size-4" />
-            <span className="sr-only">Próxima Página</span>
+            <span className="sr-only">Próxima página</span>
           </Button>
 
           <Button
@@ -71,7 +71,7 @@ export function Pagination({
             disabled={pages <= pageIndex + 1}
           >
             <ChevronsRight className="size-4" />
-            <span className="sr-only">Última Página</span>
+            <span className="sr-only">Última página</span>
           </Button>
         </div>
       </div>
