@@ -4,7 +4,7 @@ export interface GetManagedRestaurantResponse {
   id: string
   name: string
   createdAt: Date
-  updatedAt: Date
+  updatedAt: Date | null
   description: string
   managerId: string | null
 }
