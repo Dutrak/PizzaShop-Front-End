@@ -12,9 +12,12 @@ test('Update Profile Sucessfully', async ({ page }) => {
   await page.getByLabel('Nome').fill('Pizza Shop')
 
   await page.getByRole('button', { name: 'Salvar' }).click()
+
   page.waitForLoadState('networkidle')
 
   expect(page.getByText('Perfil Atualizado com sucesso')).toBeVisible()
 
-  expect(page.getByRole('button', { name: 'Pizza Shop' })).toBeEnabled()
+  await page.waitForTimeout(1000)
+
+  expect(page.getByRole('button', { name: 'Pizza Shop' })).toBeVisible()
 })

@@ -7,11 +7,13 @@ test('sign in sucessfully', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Acessar Painel' }).click()
 
-  const toast = await page.getByText(
-    'Enviamos um link de autenticação para o email jhondoe@example.com',
-  )
+  await page.waitForLoadState('networkidle')
 
-  expect(toast).toBeVisible()
+  expect(
+    page.getByText(
+      'Enviamos um link de autenticação para o email jhondoe@example.com',
+    ),
+  ).toBeVisible()
 })
 
 test('sign in with wrong credentials', async ({ page }) => {
@@ -21,9 +23,9 @@ test('sign in with wrong credentials', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Acessar Painel' }).click()
 
-  const toast = await page.getByText('Credenciais Invalidas')
+  await page.waitForLoadState('networkidle')
 
-  expect(toast).toBeVisible()
+  expect(page.getByText('Credenciais Invalidas')).toBeVisible()
 })
 
 test('Navigate no new restaurant page', async ({ page }) => {

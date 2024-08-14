@@ -21,6 +21,8 @@ test('Sign up Sucessfully', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Finalizar Cadastro' }).click()
 
+  await page.waitForLoadState('networkidle')
+
   expect(page.getByText('Restaurante Cadastrado com sucesso')).toBeVisible()
 })
 
@@ -36,6 +38,8 @@ test('Sign up With Errror', async ({ page }) => {
   await page.getByLabel('Seu Celular').fill('11123132143')
 
   await page.getByRole('button', { name: 'Finalizar Cadastro' }).click()
+
+  await page.waitForLoadState('networkidle')
 
   expect(page.getByText('Erro ao cadastrar Resturante')).toBeVisible()
 })
