@@ -13,11 +13,8 @@ test('Update Profile Sucessfully', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Salvar' }).click()
 
-  page.waitForLoadState('networkidle')
-
-  expect(page.getByText('Perfil Atualizado com sucesso')).toBeVisible()
-
-  await page.waitForTimeout(1000)
-
-  expect(page.getByRole('button', { name: 'Pizza Shop' })).toBeVisible()
+  await expect(
+    page.getByText('Perfil Atualizado com sucesso', { exact: true }),
+  ).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Pizza Shop' })).toBeVisible()
 })

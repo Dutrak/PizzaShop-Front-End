@@ -7,11 +7,10 @@ test('sign in sucessfully', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Acessar Painel' }).click()
 
-  await page.waitForLoadState('networkidle')
-
-  expect(
+  await expect(
     page.getByText(
       'Enviamos um link de autenticação para o email jhondoe@example.com',
+      { exact: true },
     ),
   ).toBeVisible()
 })
@@ -23,9 +22,9 @@ test('sign in with wrong credentials', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Acessar Painel' }).click()
 
-  await page.waitForLoadState('networkidle')
-
-  expect(page.getByText('Credenciais Invalidas')).toBeVisible()
+  await expect(
+    page.getByText('Credenciais Invalidas', { exact: true }),
+  ).toBeVisible()
 })
 
 test('Navigate no new restaurant page', async ({ page }) => {

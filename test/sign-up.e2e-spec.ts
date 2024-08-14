@@ -21,9 +21,9 @@ test('Sign up Sucessfully', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Finalizar Cadastro' }).click()
 
-  await page.waitForLoadState('networkidle')
-
-  expect(page.getByText('Restaurante Cadastrado com sucesso')).toBeVisible()
+  await expect(
+    page.getByText('Restaurante Cadastrado com sucesso', { exact: true }),
+  ).toBeVisible()
 })
 
 test('Sign up With Errror', async ({ page }) => {
@@ -41,5 +41,7 @@ test('Sign up With Errror', async ({ page }) => {
 
   await page.waitForLoadState('networkidle')
 
-  expect(page.getByText('Erro ao cadastrar Resturante')).toBeVisible()
+  await expect(
+    page.getByText('Erro ao cadastrar Resturante', { exact: true }),
+  ).toBeVisible()
 })
