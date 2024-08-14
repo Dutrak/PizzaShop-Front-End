@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw'
 import { UpdateProfileRequestBody } from '../update-profile'
 
 export const updateProfileMock = http.put<never, UpdateProfileRequestBody>(
-  '/managed-restaurant',
+  '/restaurants',
   async ({ request }) => {
     const { name } = await request.json()
 
