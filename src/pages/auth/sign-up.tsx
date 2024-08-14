@@ -101,7 +101,7 @@ export function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="restaurantName">
+                <Label htmlFor="restaurantDescription">
                   Descrição Estabelecimento
                 </Label>
                 <Input
